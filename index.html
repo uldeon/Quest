@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Quest</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest - Moteur de recherche</title>
+    <style>
+        /* Style pour le corps de la page */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1e1e2f; /* Fond sombre */
+            color: #f4f4f9; /* Texte clair */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Style pour le logo */
+        .logo {
+            font-size: 6rem; /* Taille du texte */
+            font-weight: bold;
+            color: #0d6efd; /* Couleur bleue */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ombre plus prononcée */
+            animation: fadeIn 2s ease-in-out; /* Animation d'apparition */
+            margin-top: 20px; /* Espace au-dessus du logo */
+        }
+
+        /* Style pour le conteneur de recherche */
+        .search-container {
+            margin-top: 20px; /* Espace entre le logo et la barre de recherche */
+            width: 80%;
+            max-width: 600px;
+        }
+
+        /* Style pour la barre de recherche Google CSE */
+        .gcse-search {
+            background-color: #2e2e3f; /* Fond sombre pour la barre de recherche */
+            border-radius: 8px; /* Coins arrondis */
+            padding: 10px; /* Espace intérieur */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Ombre pour le contraste */
+        }
+
+        /* Style pour les boutons */
+        .protection-button, .share-button, .premium-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0d6efd; /* Couleur bleue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .protection-button:hover, .share-button:hover, .premium-button:hover {
+            background-color: #0b5ed7; /* Bleu plus foncé au survol */
+        }
+
+        /* Style pour la fenêtre modale */
+        .modal {
+            display: none; /* Cachée par défaut */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #2e2e3f;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            width: 80%;
+            max-width: 500px;
+            color: #f4f4f9;
+        }
+
+        /* Style pour l'arrière-plan flou */
+        .overlay {
+            display: none; /* Caché par défaut */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+            z-index: 999;
+        }
+
+        /* Style pour le bouton de fermeture */
+        .close-button {
+            float: right;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #f4f4f9;
+        }
+
+        /* Style pour les widgets */
+        .widgets-container {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .widget {
+            background-color: #2e2e3f;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 200px;
+        }
+
+        .widget h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #0d6efd;
+        }
+
+        .widget p {
+            margin: 0;
+            font-size: 1rem;
+            color: #f4f4f9;
+        }
+
+        /* Animation d'apparition */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+    <!-- Intégration de Google Custom Search Engine -->
+    <script async src="https://cse.google.com/cse.js?cx=51dfa52ca5da24746"></script>
+    <!-- Intégration du chatbot -->
+    <script type="application/javascript">
+        (function(w,d,s,o,f,js,fjs){
+            w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments);};
+            (js=d.createElement(s)),(fjs=d.getElementsByTagName(s)[0]);
+            js.id=o;js.src=f;js.async=1;js.referrerPolicy = "origin";
+            fjs.parentNode.insertBefore(js,fjs);
+        })(window,document,"script","copilot","https://script.copilot.live/v1/copilot.min.js?tkn=cat-o9r6sx3n");
+        copilot("init",{});
+    </script>
+</head>
+<body>
+    <!-- Logo de Quest -->
+    <div class="logo">Quest</div>
+
+    <!-- Conteneur pour la barre de recherche Google CSE -->
+    <div class="search-container">
+        <div class="gcse-search"></div>
+    </div>
+
+    <!-- Bouton "Comment Quest vous protège ?" -->
+    <button class="protection-button" onclick="openModal()">Comment Quest vous protège ?</button>
+
+    <!-- Bouton "Partager Quest" -->
+    <button class="share-button" onclick="shareQuest()">Partager Quest</button>
+
+    <!-- Bouton "Activer la version premium" -->
+    <button class="premium-button" onclick="activatePremium()">Activer la version premium</button>
+
+    <!-- Fenêtre modale -->
+    <div id="modal" class="modal">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <h2>Comment Quest vous protège ?</h2>
+        <p>
+            Quest est conçu pour garantir votre sécurité et votre confidentialité en ligne. Voici comment nous vous protégeons :
+        </p>
+        <ul>
+            <li>🚫 <strong>Exclusion des sites malveillants</strong> : Nous filtrons les sites dangereux pour vous offrir une expérience de recherche sûre.</li>
+            <li>🔒 <strong>SafeSearch par défaut</strong> : Le filtrage de contenu inapproprié est activé automatiquement.</li>
+            <li>🛡️ <strong>Protection via iframe</strong> : Quest est lancé dans une iframe, ce qui limite l'accès direct à votre navigateur.</li>
+            <li>🌐 <strong>Respect de la vie privée</strong> : Nous ne collectons ni ne partageons vos données de recherche.</li>
+            <li>🔍 <strong>Transparence</strong> : Vous savez toujours d'où viennent les résultats de recherche.</li>
+            <li>🚨 <strong>Détection des menaces</strong> : Nous utilisons des technologies avancées pour identifier et bloquer les contenus suspects.</li>
+        </ul>
+    </div>
+
+    <!-- Arrière-plan flou -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Widgets (version premium) -->
+    <div id="widgets" class="widgets-container" style="display: none;">
+        <div class="widget">
+            <h3>Heure locale</h3>
+            <p id="local-time">Chargement...</p>
+        </div>
+        <div class="widget">
+            <h3>Météo</h3>
+            <p id="weather">Chargement...</p>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour ouvrir la fenêtre modale
+        function openModal() {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        // Fonction pour fermer la fenêtre modale
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Fermer la fenêtre modale en cliquant en dehors
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            const overlay = document.getElementById('overlay');
+            if (event.target === overlay) {
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+        }
+
+        // Fonction pour partager Quest
+        function shareQuest() {
+            const url = window.location.href; // URL de Quest
+            const text = "Découvrez Quest, un moteur de recherche sécurisé et respectueux de votre vie privée !";
+
+            // Option 1 : Partage sur les réseaux sociaux
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Quest - Moteur de recherche',
+                    text: text,
+                    url: url,
+                })
+                .then(() => console.log('Partage réussi !'))
+                .catch((error) => console.error('Erreur lors du partage :', error));
+            }
+            // Option 2 : Copier le lien dans le presse-papiers
+            else {
+                navigator.clipboard.writeText(url)
+                    .then(() => alert("Lien copié dans le presse-papiers !"))
+                    .catch(() => alert("Impossible de copier le lien. Veuillez le faire manuellement."));
+            }
+        }
+
+        // Fonction pour activer la version premium
+        function activatePremium() {
+            const widgetsContainer = document.getElementById('widgets');
+            widgetsContainer.style.display = 'flex'; // Affiche les widgets
+
+            // Mettre à jour l'heure locale
+            function updateTime() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString();
+                document.getElementById('local-time').textContent = timeString;
+            }
+            setInterval(updateTime, 1000); // Met à jour l'heure chaque seconde
+
+            // Mettre à jour la météo (exemple simple)
+            document.getElementById('weather').textContent = "☀️ 25°C"; // Exemple statique
+            // Pour une météo dynamique, utilise une API comme OpenWeatherMap.
+        }
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
