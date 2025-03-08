@@ -1,7 +1,7 @@
 {
   "name": "Quest",
   "short_name": "Quest",
-  "start_url": "/",
+  "start_url": "/Quest",
   "display": "standalone",
   "background_color": "#1e1e2f",
   "theme_color": "#0d6efd",
